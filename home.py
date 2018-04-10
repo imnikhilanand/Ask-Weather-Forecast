@@ -1,13 +1,19 @@
 import speech_recongnition as sr
 import re 
 import nltk
-#nltk.download('stopwords')
+nltk.download('stopwords')
 from nltk.stem.porter import PorterStemmer
 from nltk.corpus import stopwords
 from urllib.request import urlopen
 import json
+import pyttsx
 
+speech_engine = pyttsx.init('espeak') 
+speech_engine.setProperty('rate', 150)
 
+def speak(text):
+    speech_engine.say(text)
+    speech_engine.runAndWait()
 
 
 def tell_weather(string):
@@ -65,7 +71,7 @@ def tell_weather(string):
 
 r = sr.Recognizer();
 with sr.Microphone() as source:
-    print ('Ask Weather forecast')
+    speak("Hey I am here to tell you the weeather forecast, ask me")
     audio = r.listen(source)
 try:
     string = r.recognize_google(audio)
